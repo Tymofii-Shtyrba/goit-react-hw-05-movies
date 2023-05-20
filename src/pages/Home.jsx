@@ -1,27 +1,34 @@
+import TrandingList from 'components/TrandingList/TrandingList';
 import React, { useEffect, useState } from 'react';
+import { ColorRing } from 'react-loader-spinner';
 import moviesAPI from 'services/moviesAPI';
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (movies.length !== 0) return;
-    console.log(movies);
     const foo = async () => {
-      const respons = await moviesAPI();
-      setMovies(respons.data.results);
+      try {
+        const respons = await moviesAPI();
+        setMovies(respons.data.results);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+      }
     };
     foo();
-  });
+  }, []);
 
   return (
     <div>
       <h1>Trending today</h1>
-      <ul>
-        {movies.map(({ original_title, id }) => {
-          return <li>{[original_title, id]}</li>;
-        })}
-      </ul>
+
+      {movies.length > 0 && <TrandingList movies={movies} />}
+      {isLoading && <ColorRing />}
+      {error !== '' && <p>{error}</p>}
     </div>
   );
 }
