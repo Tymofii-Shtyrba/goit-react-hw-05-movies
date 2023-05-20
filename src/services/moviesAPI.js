@@ -9,6 +9,7 @@ const options = {
 }
 
 const moviesAPI = () => {
+  console.log('send');
   return axios('https://api.themoviedb.org/3/trending/all/day?language=en-US', options);
 }
 
