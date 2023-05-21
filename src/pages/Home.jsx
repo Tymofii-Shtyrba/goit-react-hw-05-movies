@@ -9,25 +9,27 @@ export default function Home() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const foo = async () => {
+    const getData = async () => {
       try {
-        const respons = await moviesAPI();
-        setMovies(respons.data.results);
+        const response = await moviesAPI.trendingFilms();
+        setMovies(response.data.results);
         setIsLoading(false);
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
       }
     };
-    foo();
+    getData();
   }, []);
 
   return (
     <div>
       <h1>Trending today</h1>
-
-      {movies.length > 0 && <TrandingList movies={movies} />}
-      {isLoading && <ColorRing />}
+      {isLoading ? (
+        <ColorRing />
+      ) : (
+        error === '' && <TrandingList movies={movies} />
+      )}
       {error !== '' && <p>{error}</p>}
     </div>
   );
