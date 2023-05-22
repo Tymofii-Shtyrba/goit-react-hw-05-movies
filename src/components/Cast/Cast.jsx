@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import moviesAPI from 'services/moviesAPI';
 import StyledNoImage from 'components/NoImage/NoImage.styled';
 import { ColorRing } from 'react-loader-spinner';
+import StyledCast from './Cast.styled';
 
 export default function Cast() {
   const [listOfActors, setListOfActors] = useState([]);
@@ -13,7 +14,6 @@ export default function Cast() {
     const getData = async () => {
       try {
         const response = await moviesAPI.credits(movieId);
-        console.log(response);
         setListOfActors(response.data.cast);
         setIsLoading(false);
       } catch (error) {}
@@ -22,7 +22,7 @@ export default function Cast() {
   }, [movieId]);
 
   return (
-    <div>
+    <StyledCast>
       {listOfActors.length > 0 && (
         <ul>
           {listOfActors.map(({ character, original_name, profile_path }) => (
@@ -42,6 +42,6 @@ export default function Cast() {
         </ul>
       )}
       {isLoading && <ColorRing />}
-    </div>
+    </StyledCast>
   );
 }

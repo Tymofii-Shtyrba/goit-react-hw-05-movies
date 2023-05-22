@@ -1,20 +1,21 @@
 import React, { Suspense } from 'react';
 import { ColorRing } from 'react-loader-spinner';
 import { NavLink, Outlet } from 'react-router-dom';
+import { StyledLayout, StyledNavList } from './Layout.styled';
 
 export default function Layout() {
   return (
-    <div>
+    <StyledLayout>
       <header>
         <nav>
-          <ul>
+          <StyledNavList>
             <li>
               <NavLink to={'/'}>Home</NavLink>
             </li>
             <li>
               <NavLink to={'movies'}>Movies</NavLink>
             </li>
-          </ul>
+          </StyledNavList>
         </nav>
       </header>
       <main>
@@ -23,6 +24,6 @@ export default function Layout() {
         </Suspense>
       </main>
       <footer></footer>
-    </div>
+    </StyledLayout>
   );
 }

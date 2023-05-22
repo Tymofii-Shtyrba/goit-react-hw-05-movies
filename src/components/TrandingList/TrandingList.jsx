@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { StyledTrandingList } from './TrandignList.styled';
+import PropTypes from 'prop-types';
 
 export default function TrandingList({ movies, location }) {
   return (
-    <ul>
+    <StyledTrandingList>
       {movies.map(movie => {
         return (
           <li key={movie.id}>
@@ -16,6 +18,11 @@ export default function TrandingList({ movies, location }) {
           </li>
         );
       })}
-    </ul>
+    </StyledTrandingList>
   );
 }
+
+TrandingList.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.object.isRequired,
+};

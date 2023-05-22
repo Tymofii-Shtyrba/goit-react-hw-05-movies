@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import moviesAPI from 'services/moviesAPI';
+import { StyledReviewsList, StyledReviewsWrapper } from './Reviews.styled';
 
 export default function Reviews() {
   const { movieId } = useParams();
@@ -10,24 +11,28 @@ export default function Reviews() {
     const getData = async () => {
       try {
         const response = await moviesAPI.movieReviews(movieId);
-        console.log(response);
         setReviews(response.data.results);
       } catch (error) {}
     };
     getData();
   }, [movieId]);
   return (
-    <div>
-      {reviews.length > 0 && (
-        <ul>
+    <StyledReviewsWrapper>
+      {reviews.length > 0 ? (
+        <StyledReviewsList>
           {reviews.map(revie => (
             <li>
-              <p>{revie.author}</p>
+              <p>
+                <b>Author: </b>
+                {revie.author}
+              </p>
               <p>{revie.content}</p>
             </li>
           ))}
-        </ul>
+        </StyledReviewsList>
+      ) : (
+        <p>There's no reviews</p>
       )}
-    </div>
+    </StyledReviewsWrapper>
   );
 }
