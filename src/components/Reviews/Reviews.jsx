@@ -15,7 +15,7 @@ export default function Reviews() {
       } catch (error) {}
     };
     getData();
-  });
+  }, [movieId]);
   return (
     <div>
       {reviews.length > 0 && (
