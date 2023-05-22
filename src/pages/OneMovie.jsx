@@ -1,7 +1,13 @@
 import MainMovieInfo from 'components/MainMovieInfo/MainMovieInfo';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import moviesAPI from 'services/moviesAPI';
 
 export default function OneMovie() {
@@ -9,6 +15,9 @@ export default function OneMovie() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const { movieId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const prevPath = useRef(location.state?.from);
 
   useEffect(() => {
     const getData = async id => {
@@ -24,9 +33,18 @@ export default function OneMovie() {
     getData(movieId);
   }, [movieId]);
 
+  const goBack = () => {
+    navigate(prevPath.current);
+  };
+
   return (
     <div>
-      <button>Go back</button>
+      {prevPath.current && (
+        <button type="button" onClick={goBack}>
+          {' '}
+          Go back
+        </button>
+      )}
       {isLoading ? (
         <ColorRing />
       ) : (

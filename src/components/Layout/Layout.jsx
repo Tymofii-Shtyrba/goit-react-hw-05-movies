@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { ColorRing } from 'react-loader-spinner';
 import { NavLink, Outlet } from 'react-router-dom';
 
 export default function Layout() {
@@ -17,7 +18,9 @@ export default function Layout() {
         </nav>
       </header>
       <main>
-        <Outlet />
+        <Suspense fallback={<ColorRing />}>
+          <Outlet />
+        </Suspense>
       </main>
       <footer></footer>
     </div>

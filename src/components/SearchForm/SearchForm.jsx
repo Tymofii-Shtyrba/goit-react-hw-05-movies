@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function SearchForm() {
+export default function SearchForm({ onSearch }) {
   return (
-    <form>
+    <form onSubmit={onSearch}>
       <label>
-        <input type="text" />
+        <input name="query" type="text" />
       </label>
       <button type="submit">search</button>
     </form>

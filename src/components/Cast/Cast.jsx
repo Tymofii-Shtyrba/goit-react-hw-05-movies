@@ -13,7 +13,6 @@ export default function Cast() {
     const getData = async () => {
       try {
         const response = await moviesAPI.credits(movieId);
-        console.log(response);
         setListOfActors(response.data.cast);
         setIsLoading(false);
       } catch (error) {}
